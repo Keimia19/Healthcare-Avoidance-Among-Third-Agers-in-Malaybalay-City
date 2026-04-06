@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>References</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #7faee6;
+    --light: #cfe3ff;
+    --accent: #5c8fd6;
+    --bg: #f4f8ff;
+    --card: #ffffff;
+    --text: #2a3f5f;
+    --muted: #6c85a3;
+    --line: #d6e4f5;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Source Serif 4', Georgia, serif;
+    background: var(--cream);
+    color: var(--text);
+    min-height: 100vh;
+    background-image:
+      radial-gradient(ellipse at 10% 20%, rgba(168,213,162,0.18) 0%, transparent 55%),
+      radial-gradient(ellipse at 90% 80%, rgba(122,173,122,0.13) 0%, transparent 50%);
+  }
+
+  .page-wrap {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 60px 32px 80px;
+  }
+
+  /* ── Header ── */
+  header {
+    text-align: center;
+    margin-bottom: 52px;
+    position: relative;
+  }
+
+  .header-leaf {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 10px;
+    animation: sway 4s ease-in-out infinite;
+  }
+  @keyframes sway {
+    0%,100% { transform: rotate(-4deg); }
+    50%      { transform: rotate(4deg); }
+  }
+
+  header h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 600;
+    color: var(--forest);
+    letter-spacing: 0.02em;
+    line-height: 1.2;
+  }
+
+  header .subtitle {
+    margin-top: 10px;
+    font-size: 0.95rem;
+    color: var(--muted);
+    font-style: italic;
+    font-weight: 300;
+  }
+
+  .header-rule {
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--sage), transparent);
+    margin: 18px auto 0;
+    border-radius: 2px;
+  }
+
+  /* ── Search bar ── */
+  .search-wrap {
+    position: relative;
+    margin-bottom: 40px;
+  }
+  .search-wrap input {
+    width: 100%;
+    padding: 14px 20px 14px 48px;
+    border: 1.5px solid var(--line);
+    border-radius: 50px;
+    background: var(--white);
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.95rem;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.25s, box-shadow 0.25s;
+    box-shadow: 0 2px 8px rgba(74,140,92,0.07);
+  }
+  .search-wrap input:focus {
+    border-color: var(--sage);
+    box-shadow: 0 2px 16px rgba(74,140,92,0.13);
+  }
+  .search-wrap input::placeholder { color: var(--muted); opacity: 0.7; }
+  .search-icon {
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--sage);
+    font-size: 1.1rem;
+    pointer-events: none;
+  }
+  #ref-count {
+    text-align: right;
+    font-size: 0.82rem;
+    color: var(--muted);
+    margin-top: 8px;
+    font-style: italic;
+  }
+
+  /* ── Reference list ── */
+  .ref-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .ref-item {
+    display: flex;
+    gap: 16px;
+    padding: 22px 0;
+    border-bottom: 1px solid var(--line);
+    animation: fadeUp 0.4s ease both;
+  }
+  .ref-item:last-child { border-bottom: none; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .ref-num {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(135deg, var(--mint), var(--sage));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--white);
+    margin-top: 2px;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+  }
+
+  .ref-body {
+    flex: 1;
+    font-size: 0.925rem;
+    line-height: 1.75;
+    color: var(--text);
+    font-weight: 300;
+  }
+
+  .ref-body a {
+    color: var(--forest);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--sage);
+    transition: color 0.2s, border-color 0.2s;
+    word-break: break-all;
+  }
+  .ref-body a:hover {
+    color: var(--sage);
+    border-color: transparent;
+  }
+
+  /* ── QR section ── */
+  .qr-section {
+    margin-top: 60px;
+    text-align: center;
+  }
+
+  .qr-card {
+    display: inline-block;
+    background: var(--white);
+    border: 1.5px solid var(--line);
+    border-radius: 20px;
+    padding: 32px 36px;
+    box-shadow: 0 6px 30px rgba(74,140,92,0.10);
+  }
+
+  .qr-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--forest);
+    margin-bottom: 6px;
+  }
+  .qr-card p {
+    font-size: 0.82rem;
+    color: var(--muted);
+    font-style: italic;
+    margin-bottom: 20px;
+  }
+
+  #qrcode canvas, #qrcode img {
+    border-radius: 10px;
+    border: 4px solid var(--pale);
+  }
+
+  .qr-url {
+    margin-top: 14px;
+    font-size: 0.78rem;
+    color: var(--muted);
+    word-break: break-all;
+    max-width: 260px;
+    line-height: 1.5;
+  }
+
+  /* ── Footer ── */
+  footer {
+    margin-top: 60px;
+    text-align: center;
+    font-size: 0.78rem;
+    color: var(--muted);
+    font-style: italic;
+    opacity: 0.7;
+  }
+
+  /* ── Hidden items ── */
+  .ref-item.hidden { display: none; }
+</style>
+</head>
+<body>
+
+<div class="page-wrap">
+
+  <header>
+    <span class="header-leaf">🌿</span>
+    <h1>References</h1>
+    <p class="subtitle">Research Bibliography &amp; Citations</p>
+    <div class="header-rule"></div>
+  </header>
+
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="search" placeholder="Search references by author, title, or year…" oninput="filterRefs()">
+  </div>
+  <p id="ref-count"></p>
+
+  <div class="ref-list" id="ref-list"></div>
+
+  <div class="qr-section">
+    <div class="qr-card">
+      <h3>Scan to Access</h3>
+      <p>Share this reference page instantly</p>
+      <div id="qrcode"></div>
+      <div class="qr-url" id="qr-url-text"></div>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 · All references listed in APA format
+  </footer>
+
+</div>
+
+<!-- QRCode.js from CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<script>
+const refs = [
+ "Becker, M. H., & Rosenstock, I. M. (1974). The health belief model and personal health behavior. In H. A. M. Steptoe (Ed.), Health behavior and health education: Theory, research, and practice (pp. 91–110). Jossey-Bass.",
+  "Bhutia, K. D., Latha, T., & Devi, E. S. (2019). Beliefs, preferences and practices of end-of-life care among elderly. Medico-Legal Update, 19(2), 53. <a>https://doi.org/10.5958/0974-1283.2019.00143.9</a>",
+  "Bibon, M. B. (2021). Acquisition of folk healing practices: A phenomenological study grounding the experiences of Parasantigwar in Cagraray Island, Philippines. <a>https://www.semanticscholar.org/paper/a2747d5543d12d14174e4bdd5ed1135527c20eff</a>",
+  "Burch, A. E. (2022). Factors responsible for healthcare avoidance among rural adults in the Eastern Region of North Carolina. Journal of Community Health, 47(5), 737–744. <a>https://doi.org/10.1007/s10900-022-01106-3</a>",
+  "Cablao, J. Y., Bonafe, C. A. D., Espinoza, C. A. B., Cuya-Antonio, O. C., & Casimiro, R. R. (2019). Awareness and perception of senior citizens on the implementation of R.A. 9994 in San Isidro, Nueva Ecija, Philippines. Journal of Public Administration and Governance, 9(2), 248. <a>https://doi.org/10.5296/jpag.v9i2.14767</a>",
+  "Carandang, R. R., Asis, E., Shibanuma, A., Kiriya, J., Murayama, H., & Jimba, M. (2019). Unmet needs and coping mechanisms among community-dwelling senior citizens in the Philippines: A qualitative study. International Journal of Environmental Research and Public Health, 16(19), 3745. <a>https://doi.org/10.3390/ijerph16193745</a>",
+  "Carandang, R. R., Cruz, J. P., & Cruz, C. P. (2019). Challenges in accessing healthcare among older adults in rural Philippines. Journal of Public Health Research, 8(2), 123–130.",
+  "Cardoso, R. S. S., Tosin, M. H. S., De Oliveira, B. G. R. B., Moraes, K. L., & Santana, R. F. (2023). The multidimensionality of low health literacy in older adults: A scoping review of international studies. Clinical Nursing Research, 32(2), 270–277. <a>https://doi.org/10.1177/10547738221146461</a>",
+  "Commission on Population and Development. (2023). Population projections for the Philippines: Aging population trends. <a>https://popcom.gov.ph</a>",
+  "Cooper-Moss, N., Umpleby, K., Roberts, C., Garner, C., Edwards, A. H., Ditzel, N., et al. (2024). Barriers to healthcare for people with a learning disability from ethnic minorities: Perspectives of self-advocates and carers. <a>https://www.semanticscholar.org/paper/57cef3ee1b5f60c59e356ccb1aa1f963f3d9af24</a>",
+  "Creswell, J. W., & Poth, C. N. (2018). Qualitative inquiry and research design: Choosing among five approaches (4th ed.). SAGE Publications.",
+  "Etikan, I., Musa, S. A., & Alkassim, R. S. (2016). Comparison of convenience sampling and purposive sampling. American Journal of Theoretical and Applied Statistics, 5(1), 1–4. <a>https://doi.org/10.11648/j.ajtas.20160501.11</a>",
+  "Gann, L., Devine, F., Popadic, L., Lal, S., Witte, M., Potter, M., & Hass, S. (2024). Characterizing treatment patterns, medication burden, and patient demographics of older adults with major depressive disorder. <a>https://www.semanticscholar.org</a>",
+  "Grad, R., Thériault, G., Singh, H., Dickinson, J. A., Szafran, O., & Bell, N. R. (2019). Age to stop? Appropriate screening in older patients. <a>https://pmc.ncbi.nlm.nih.gov/articles/PMC6693611/</a>",
+  "Hajek, A., Kretzler, B., Gyasi, R. M., & König, H. (2023). Community centers for older adults and psychosocial factors: Evidence from the German Ageing Survey. International Journal of Geriatric Psychiatry, 38(3). <a>https://doi.org/10.1002/gps.5901</a>",
+  "Hausman, H. K., Dai, Y., O’Shea, A., Dominguez, V., Fillingim, M., Calfee, K., et al. (2022). The longitudinal impact of COVID-19 on health behaviors and cognition in older adults. Frontiers in Aging Neuroscience, 14. <a>https://doi.org/10.3389/fnagi.2022.999107</a>",
+  "Henderson, S., Horne, M., Hills, R., & Kendall, E. (2018). Cultural competence in healthcare in the community: A concept analysis. <a>https://www.semanticscholar.org</a>",
+  "Isaiah. (2023, October 30). As the population ages, more workers are unprepared for retirement. The Century Foundation. <a>https://tcf.org</a>",
+  "Isuga, N. J. V. D., Cruz, N. C. M. D. D., Urriza, N. J. T., et al. (2022). Awareness in identifying counterfeit medicines among Filipinos. GSC Advanced Research and Reviews, 12(3), 94–108. <a>https://doi.org/10.30574/gscarr.2022.12.3.0237</a>",
+  "Jain, M., Sharma, P. K., Kamboj, K., & Shyam, A. (2024). Impact of social media on medical education and healthcare communication. Journal of Orthopaedic Case Reports, 14(9), 1–3. <a>https://doi.org/10.13107/jocr.2024.v14.i09.4706</a>",
+  "Juachon, E. S. (2024). Specialized programs for senior citizens in NCR Philippines. </a>https://www.semanticscholar.org</a>",
+  "Kaur, M., Bandakadi, S. K. R., Narasimhulu, A., et al. (2024). Social media and cardiovascular health information dissemination. Annals of Geriatric Education and Medical Sciences, 11(1), 11–14. <a>https://doi.org/10.18231/j.agems.2024.003</a>",
+  "Khanna, K., Lu, J., & Warrier, J. (2022). The impact of socioeconomic factors on health disparities. arXiv. <a>https://arxiv.org/abs/2212.04285</a>",
+  "Kubo, Y., Noguchi, T., Hayashi, T., et al. (2021). Psychosocial changes among older adults during COVID-19. Psychogeriatrics, 22(1), 3–10. <a>https://doi.org/10.1111/psyg.12772</a>",
+  "Kumar, V., & Jain, S. (2023). Traditional tribal healers and healing practices. <a>https://www.semanticscholar.org</a>",
+  "Leyva, B., Allen, J. D., Tom, L. S., et al. (2017). Fear of diagnosis and health-seeking behaviors. Journal of Aging Studies, 42, 24–30.",
+  "Lim, M. T., Lim, Y. M. F., Tong, S. F., & Sivasampu, S. (2019). Healthcare-seeking behavior differences. PLoS ONE, 14(10), e0224260. <a>https://doi.org/10.1371/journal.pone.0224260</a>",
+  "Lima, A. C. P., Maximiano-Barreto, M., Martins, T. C. R., & Luchesi, B. (2023). Poor health literacy in older adults. <a>https://www.semanticscholar.org</a>",
+  "Luyosen, C. S. (2024). Faith healing practices: Practitioner insights. https://www.semanticscholar.org",
+  "McMaughan, D. J., Oloruntoba, O., & Smith, M. L. (2020). Socioeconomic status and healthcare access. Frontiers in Public Health, 8, 231. <a>https://doi.org/10.3389/fpubh.2020.00231</a>",
+  "Miles, M. B., & Huberman, A. M. (1994). Qualitative data analysis (2nd ed.). SAGE Publications.",
+  "Naylor, K. B., Tootoo, J., Yakusheva, O., et al. (2019). Geographic variation in healthcare accessibility. PLoS ONE, 14(4), e0215016. <a>https://doi.org/10.1371/journal.pone.0215016",
+  "Nicholls, L. B., Gallant, A., Cogan, N., et al. (2020). Older adults’ vaccine hesitancy. <a>https://www.semanticscholar.org</a>",
+  "Novak, J. R., Peak, T., Gast, J., & Arnell, M. (2019). Masculine norms and healthcare utilization. American Journal of Men's Health, 13(3). https://doi.org/10.1177/1557988319856739</a>",
+  "Ogden, L. L., Richards, C. L., & Shenson, D. (2012). Clinical preventive services for older adults. American Journal of Public Health, 102(3), 419–425. <a>https://doi.org/10.2105/AJPH.2011.300353</a>",
+  "Palinkas, L. A., Horwitz, S. M., Green, C. A., et al. (2015). Purposeful sampling for qualitative data collection. Administration and Policy in Mental Health, 42(5), 533–544. <a>https://doi.org/10.1007/s10488-013-0528-y</a>",
+  "Pampel, F. C., Krueger, P. M., & Denney, J. T. (2010). Socioeconomic disparities in health behaviors. Annual Review of Sociology, 36, 349–370. <a>https://doi.org/10.1146/annurev.soc.012809.102529</a>",
+  "Pham, T., Nguyen, N. T. T., et al. (2018). Gender differences in healthcare utilization. International Journal of Environmental Research and Public Health, 16(1), 69. <a>https://doi.org/10.3390/ijerph16010069</a>",
+  "Raghupathi, V., & Raghupathi, W. (2020). Education and health outcomes. Archives of Public Health, 78(1). <a>https://doi.org/10.1186/s13690-020-00402-5</a>",
+  "Ryu, S., & Fan, L. (2022). Financial worries and psychological distress. Journal of Family and Economic Issues, 44(1), 16–33. <a>https://doi.org/10.1007/s10834-022-09820-9</a>",
+  "Sargent, L., Zanjani, F., Winship, J. M., et al. (2022). Socioeconomic effects on psychosocial factors. https://www.semanticscholar.org",
+  "Schönfeld, M. S., Pfisterer-Heise, S., & Bergelt, C. (2021). Health literacy and medication adherence. BMJ Open, 11(12), e056307. <a>https://doi.org/10.1136/bmjopen-2021-056307</a>",
+  "Simon, N. C. (2022). Analysis of RA 9994. Journal of Humanities and Social Sciences Studies, 4(2), 159–167. https://doi.org/10.32996/jhsss.2022.4.2.19",
+  "Centers for Disease Control and Prevention. (2023). Socioeconomic factors. <a>https://www.cdc.gov/dhdsp/health_equity/socioeconomic.html</a>",
+  "Splinter, M. J., Velek, P., Ikram, M. K., et al. (2021). Healthcare avoidance during COVID-19. PLoS Medicine, 18(11), e1003854. <a>https://doi.org/10.1371/journal.pmed.1003854</a>",
+  "Stebbins, R. A. (2001). Exploratory research in the social sciences. SAGE Publications.",
+  "Teo, K., Churchill, R., Riadi, I., et al. (2022). Help-seeking behaviors among older adults. Journal of Applied Gerontology, 41(5), 1500–1510. <a>https://doi.org/10.1177/07334648211067710</a>",
+  "World Health Organization. (2024). World report on aging and health. WHO Press. <a>https://www.who.int</a>"
+];
+
+function renderRefs(list) {
+  const container = document.getElementById('ref-list');
+  container.innerHTML = '';
+  list.forEach((r, i) => {
+    const item = document.createElement('div');
+    item.className = 'ref-item';
+    item.style.animationDelay = (i * 0.025) + 's';
+    item.innerHTML = `
+      <div class="ref-num">${i + 1}</div>
+      <div class="ref-body">${r}</div>
+    `;
+    container.appendChild(item);
+  });
+  document.getElementById('ref-count').textContent =
+    list.length + ' reference' + (list.length !== 1 ? 's' : '');
+}
+
+function filterRefs() {
+  const q = document.getElementById('search').value.toLowerCase();
+  const filtered = refs.filter(r => r.replace(/<[^>]+>/g,'').toLowerCase().includes(q));
+  renderRefs(filtered);
+}
+
+renderRefs(refs);
+
+// QR Code
+const pageURL = window.location.href;
+document.getElementById('qr-url-text').textContent = pageURL;
+new QRCode(document.getElementById("qrcode"), {
+  text: pageURL,
+  width: 200,
+  height: 200,
+  colorDark: "#4a8c5c",
+  colorLight: "#f5fbf4",
+  correctLevel: QRCode.CorrectLevel.H
+});
+</script>
+</body>
+</html>
